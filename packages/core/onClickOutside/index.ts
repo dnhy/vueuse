@@ -91,6 +91,7 @@ export function onClickOutside(
 
   let shouldListen = true
 
+  // event.target在根据ignore数组查找得到的dom元素中,且event的传递过程中包含了查到的dom，那就应该被忽略
   const shouldIgnore = (event: Event) => {
     return toValue(ignore).some((target) => {
       if (typeof target === 'string') {
@@ -126,13 +127,15 @@ export function onClickOutside(
 
   const listener = (event: Event) => {
     const el = unrefElement(target)
-
+    // debugger
     if (event.target == null)
       return
 
+    // target是有多个根的vue组件
     if (!(el instanceof Element) && hasMultipleRoots(target) && checkMultipleRoots(target, event))
       return
 
+    // 原生dom或者单根vue组件 从外到内捕获事件 会经过根节点
     if (!el || el === event.target || event.composedPath().includes(el))
       return
 

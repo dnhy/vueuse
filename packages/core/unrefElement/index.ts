@@ -17,3 +17,38 @@ export function unrefElement<T extends MaybeElement>(elRef: MaybeComputedElement
   const plain = toValue(elRef)
   return (plain as VueInstance)?.$el ?? plain
 }
+interface b {
+  age: number
+}
+interface c {
+  x: boolean
+}
+
+type j = b & c
+type l = b | c
+interface IObj extends j {
+  name: string
+}
+let a: IObj = {
+  name: 'qqq',
+  age: 12,
+}
+
+function test<T extends j>(a: T[]): T {
+  return a[0]
+}
+const foo: j = {
+  age: 111,
+  x: true,
+}
+
+test<j>([foo])
+
+function test2<T extends l>(a: T[]): T {
+  return a[0]
+}
+const foo2: l = {
+  age: 111,
+}
+
+test2<l>([foo2])

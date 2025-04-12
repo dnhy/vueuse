@@ -10,6 +10,7 @@ const mouseDefault = reactive(useMouse())
 const textDefault = stringify(mouseDefault)
 
 const extractor: UseMouseEventExtractor = (event) => {
+  // pc鼠标事件
   if (event instanceof MouseEvent)
     return [event.offsetX, event.offsetY]
   else

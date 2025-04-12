@@ -13,6 +13,7 @@
     "build:types": "vue-tsc --emitDeclarationOnly",
     "clean": "tsx scripts/clean.ts",
     "dev": "nr update && nr docs",
+    "dev:play": "pnpm -C playgrounds/vite dev",
     "docs": "vitepress dev packages --open",
     "docs:build": "nr update:full && nr build && vitepress build packages && nr build:redirects",
     "docs:serve": "vitepress serve packages",

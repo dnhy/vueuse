@@ -1,9 +1,11 @@
-<script setup lang="ts">
-import { useMouse } from '@vueuse/core'
+<template>
+  <div>
+    <createGlobalStateTest />
+  </div>
+</template>
 
-const { x, y } = useMouse()
+<script setup lang="ts">
+import createGlobalStateTest from './components/createGlobalStateTest.vue';
 </script>
 
-<template>
-  <div>{{ x }}, {{ y }}</div>
-</template>
+<style lang="scss" scoped></style>

@@ -142,6 +142,7 @@ export function useEventListener(...args: Parameters<typeof useEventListener>) {
     return () => el.removeEventListener(event, listener, options)
   }
 
+  // 
   const firstParamTargets = computed(() => {
     const test = toArray(toValue(args[0])).filter(e => e != null)
     return test.every(e => typeof e !== 'string') ? test : undefined
@@ -163,6 +164,7 @@ export function useEventListener(...args: Parameters<typeof useEventListener>) {
 
       // create a clone of options, to avoid it being changed reactively on removal
       const optionsClone = isObject(raw_options) ? { ...raw_options } : raw_options
+      // flatMap多层转单层遍历
       cleanups.push(
         ...raw_targets.flatMap(el =>
           raw_events.flatMap(event =>
@@ -179,6 +181,7 @@ export function useEventListener(...args: Parameters<typeof useEventListener>) {
     cleanup()
   }
 
+  // 相当于组件onUnmounted时调用cleanup，不与组件耦合，与当前的 effect 作用域关联
   tryOnScopeDispose(cleanup)
 
   return stop

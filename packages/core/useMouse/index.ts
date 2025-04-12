@@ -100,7 +100,7 @@ export function useMouse(options: UseMouseOptions = {}) {
       [x.value, y.value] = result
       sourceType.value = 'mouse'
     }
-
+       
     if (window) {
       _prevScrollX = window.scrollX
       _prevScrollY = window.scrollY
@@ -108,6 +108,7 @@ export function useMouse(options: UseMouseOptions = {}) {
   }
 
   const touchHandler = (event: TouchEvent) => {
+  console.log('event :', event);
     if (event.touches.length > 0) {
       const result = extractor(event.touches[0])
       if (result) {
@@ -146,8 +147,10 @@ export function useMouse(options: UseMouseOptions = {}) {
     : () => scrollHandler()
 
   if (target) {
+    // 提升事件性能，声明无阻止默认事件，直接执行默认行为而不必等待js代码执行完再执行，适用于touch、scroll
     const listenerOptions = { passive: true }
     useEventListener(target, ['mousemove', 'dragover'], mouseHandlerWrapper, listenerOptions)
+    // 移动端touch事件
     if (touch && type !== 'movement') {
       useEventListener(target, ['touchstart', 'touchmove'], touchHandlerWrapper, listenerOptions)
       if (resetOnTouchEnds)
